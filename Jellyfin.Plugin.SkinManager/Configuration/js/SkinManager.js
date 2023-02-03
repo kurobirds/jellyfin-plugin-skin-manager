@@ -1,22 +1,32 @@
 var data;
 var fonts;
 var hasGoogleFont = false;
+var plugin = {
+    guid: "e9ca8b8e-ca6d-40e7-85dc-58e536df8eb3"
+};
+var uriSkin = "https://raw.githubusercontent.com/kurobirds/jellyfin-plugin-skin-manager/master/skins-3.0.json";
+var uriGoogleFonts =
+    "https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=AIzaSyB_bPGsf0vxnpO9GmkBjeoEIQ7rE9rbNck";
+var config = undefined;
+var colorPickers = {};
+var savedGoogleFont;
 
 function start() {
     Dashboard.showLoadingMsg();
     $.getJSON(
-        "https://raw.githubusercontent.com/danieladov/jellyfin-plugin-skin-manager/master/skins-3.0.json",
+        uriSkin,
         function (json) {
             $.getJSON(
-                "https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=AIzaSyB_bPGsf0vxnpO9GmkBjeoEIQ7rE9rbNck",
+                uriGoogleFonts,
                 function (jsonFonts) {
                     fonts = jsonFonts;
                 }
             );
+
             data = json;
             loadSkins();
-            Dashboard.hideLoadingMsg();
             checkEasterEggs();
+            Dashboard.hideLoadingMsg();
         }
     );
 }
@@ -30,34 +40,34 @@ function loadSkins() {
         opt.value = element.defaultCss;
         cssOptions.appendChild(opt);
     });
+
     updateSelectors();
     loadConfig();
     preloadPreviews();
-
 }
 
 function loadOptions(skin) {
     var html = "";
     html += '<div data-role="controlgroup">';
-    skin.categories.forEach((categorie) => {
-        if (categorie.options.length != 0) {
-            html += getSection(categorie.name);
+    skin.categories.forEach((categories) => {
+        if (categories.options.length !== 0) {
+            html += getSection(categories.name);
         }
 
-        categorie.options.forEach((element) => {
-            if (element.type == "checkBox") {
+        categories.options.forEach((element) => {
+            if (element.type === "checkBox") {
                 html += getCheckBox(element);
-            } else if (element.type == "colorPicker") {
+            } else if (element.type === "colorPicker") {
                 html += getColorPicker(element);
-            } else if (element.type == "number") {
+            } else if (element.type === "number") {
                 html += getNumber(element);
-            } else if (element.type == "selector") {
+            } else if (element.type === "selector") {
                 html += getSelector(element);
-            } else if (element.type == "slider") {
+            } else if (element.type === "slider") {
                 html += getSlider(element);
-            } else if (element.type == "googleFonts") {
+            } else if (element.type === "googleFonts") {
                 html += getFonts(element);
-            } else if (element.type == "blurSlider") {
+            } else if (element.type === "blurSlider") {
                 html += getBlurSlider(element);
             }
         });
@@ -83,7 +93,7 @@ function preloadPreviews() {
 }
 
 function loadPreviews(skin) {
-    if (skin.previews == undefined) {
+    if (skin.previews === undefined) {
         return "";
     }
     var html = "";
@@ -98,7 +108,7 @@ function loadPreviews(skin) {
 
 function getCheckBox(option, saved) {
     var html = "";
-    var checked = saved == "true" ? 'checked="checked"' : "";
+    var checked = saved === "true" ? 'checked="checked"' : "";
     var id = "chkFolder";
     var name = option.name;
     var css = option.css;
@@ -123,16 +133,15 @@ function getCheckBox(option, saved) {
         "</div></div>";
     return html;
 }
-var colorPickers = {};
 
 function getColorPicker(option, saved) {
     var html = "";
     var id = "colorPicker" + Object.keys(colorPickers).length;
     var name = option.name;
     var defaultValue =
-        option.default == undefined ? "#000000" : option.default;
-    defaultValue = saved == undefined ? defaultValue : saved;
-    colorPickers[id] = defaultValue
+        option.default === undefined ? "#000000" : option.default;
+    defaultValue = saved === undefined ? defaultValue : saved;
+    colorPickers[id] = defaultValue;
     var css = option.css;
     var description = option.description;
     var mode = option.mode;
@@ -164,9 +173,9 @@ function getNumber(option, saved) {
     var id = "number";
     var name = option.name;
     var css = option.css;
-    var step = option.step == undefined ? 1 : option.step;
+    var step = option.step === undefined ? 1 : option.step;
     var defaultValue = option.default;
-    defaultValue = saved == undefined ? defaultValue : saved;
+    defaultValue = saved === undefined ? defaultValue : saved;
     var description = option.description;
     //html += '<label for=number><input is="emby-input" type=number value=' + defaultValue + ' class = "number" data-css = "'+ css+ '" +  data-mini="true" id="' + id + '" name="' + id + '" data-name="' + name + '" ' + ' /><span>' + name  + '</span></label><br>';
     html +=
@@ -206,7 +215,6 @@ function getSelector(option, saved) {
         "</select></div>";
     return html;
 }
-var savedGoogleFont;
 
 function getFonts(option, saved) {
     var html = "";
@@ -220,7 +228,7 @@ function getFonts(option, saved) {
     //html += '<div class = "fontPreview"> This is a preview </div>';
     //html += '<div id="font-picker"></div><div class = "apply-font"> This is a preview </div>'
     //html += '	<div class="selectContainer"><label>Change Font </label><br> <input id="font-picker" type="text"> </div>';
-    html += '<div class="selectContainer"><label>Change Font </label><br> <input class="fonts" data-css= "' + option.css + '">'
+    html += `<div class="selectContainer"><label>Change Font </label><br> <input class="fonts" data-css= "${option.css}">`;
     if (saved != undefined) {
         savedGoogleFont = saved;
     }
@@ -230,7 +238,7 @@ function getFonts(option, saved) {
 
 function getFontPreview(categories, option, selections, name) {
     var html = "";
-    if (name == "Fonts") {
+    if (name === "Fonts") {
         html +=
             '<div class="fontCont><p style="font-family: ' +
             categories.option.selections.value +
@@ -248,10 +256,11 @@ function getOptions(option, saved) {
     selections.forEach((element) => {
         var name = element.name;
         var value = element.css;
-        var selected = saved == name ? ' selected="selected"' : "";
+        var selected = saved === name ? ' selected="selected"' : "";
         html +=
             '<option value= "' +
-            value + '"' +
+            value +
+            '"' +
             selected +
             ">" +
             name +
@@ -265,13 +274,25 @@ function getSlider(option, saved) {
     var id = "slider";
     var name = option.name;
     var css = option.css;
-    var step = option.step == undefined ? 1 : option.step;
+    var step = option.step === undefined ? 1 : option.step;
     var defaultValue = option.default;
-    defaultValue = saved == undefined ? defaultValue : saved;
+    defaultValue = saved === undefined ? defaultValue : saved;
     var description = option.description;
     html +=
         +'<div class="inputContainer">' +
-        '<input type="range" class="slider" value="' + defaultValue + '" step="' + step + '" data-css="' + css + '" id="' + id + '" name="' + id + '"  min="0" max="300" label="' + name + '">' +
+        '<input type="range" class="slider" value="' +
+        defaultValue +
+        '" step="' +
+        step +
+        '" data-css="' +
+        css +
+        '" id="' +
+        id +
+        '" name="' +
+        id +
+        '"  min="0" max="300" label="' +
+        name +
+        '">' +
         '<div class="fieldDescription">' +
         description +
         +'</div>' +
@@ -288,15 +309,39 @@ function getBlurSlider(option, saved) {
     blurSliderCount++;
     var name = option.name;
     var css = option.css;
-    var step = option.step == undefined ? 1 : option.step;
+    var step = option.step === undefined ? 1 : option.step;
     var defaultValue = option.default;
-    defaultValue = saved == undefined ? defaultValue : saved;
+    defaultValue = saved === undefined ? defaultValue : saved;
     var description = option.description;
     html +=
-        '<div class="inputContainer"><label><span>' + name + '</span></label><input type="range" class="slider" value="' + defaultValue + '" oninput ="updateBlur(' + "'" + id + "'" + ')"' + 'step="' + step + '" data-css="' + css + '" id="' + id + '" name="' + id + '" min="0" max="40" label="' + name + '">' +
-        '<div class="fieldDescription">' + description + '</div>' +
+        '<div class="inputContainer"><label><span>' +
+        name +
+        '</span></label><input type="range" class="slider" value="' +
+        defaultValue +
+        '" oninput ="updateBlur(' +
+        "'" +
+        id +
+        "'" +
+        ')"' +
+        'step="' +
+        step +
+        '" data-css="' +
+        css +
+        '" id="' +
+        id +
+        '" name="' +
+        id +
+        '" min="0" max="40" label="' +
+        name +
+        '">' +
+        '<div class="fieldDescription">' +
+        description +
         '</div>' +
-        '<div class="img"><img id="' + id + 'image"' + 'src="https://i.imgur.com/sMDQSdV.png"></div>';
+        '</div>' +
+        '<div class="img"><img id="' +
+        id +
+        'image"' +
+        'src="https://i.imgur.com/sMDQSdV.png"></div>';
     return html;
 }
 
@@ -309,10 +354,10 @@ function updateBlur(id) {
 function updateBlurSliders() {
     var sliders = document.getElementsByClassName("slider");
     Array.from(sliders).forEach(slider => {
-        if (slider.id.substring(0, 10) == "blurSlider") {
+        if (slider.id.substring(0, 10) === "blurSlider") {
             updateBlur(slider.id);
         }
-    })
+    });
 }
 
 function getImage(url) {
@@ -340,7 +385,7 @@ function getSection(name) {
 }
 
 function getToolTip(option) {
-    if (option.preview == undefined) {
+    if (option.preview === undefined) {
         return "";
     }
     html = "";
@@ -372,9 +417,9 @@ async function createCss() {
     //proccess selector
     var selectors = document.getElementsByClassName("selector");
     for (var i = 0; i < selectors.length; i++) {
-        var element = selectors[i]
+        var element = selectors[i];
         if (checkForImport(element.selectedOptions[0].value)) {
-            css = element.selectedOptions[0].value + "\n" + css
+            css = element.selectedOptions[0].value + "\n" + css;
         } else {
             css +=
                 element.selectedOptions[0].value +
@@ -389,8 +434,8 @@ async function createCss() {
     });
     var inputs = document.getElementsByClassName("color");
     for (var i = 0; i < inputs.length; i++) {
-        var element = inputs[i]
-        var values = $("#" + element.name).spectrum("get")
+        var element = inputs[i];
+        var values = $("#" + element.name).spectrum("get");
         var mode = element.getAttribute("data-mode");
         var color = "";
         switch (mode) {
@@ -409,7 +454,7 @@ async function createCss() {
 
     //procces number selector
     var numberSelectors = document.getElementsByClassName("number");
-    for (let element of numberSelectors) {
+    for (var element of numberSelectors) {
         savedHtml += element.outerHTML;
         css +=
             element.getAttribute("data-css").replaceAll("$", element.value) +
@@ -418,7 +463,7 @@ async function createCss() {
 
     //procces slider
     var sliders = document.getElementsByClassName("slider");
-    for (let element of sliders) {
+    for (var element of sliders) {
         css +=
             element.getAttribute("data-css").replaceAll("$", element.value) +
             "\n";
@@ -431,39 +476,40 @@ async function createCss() {
             document.getElementsByClassName(
                 "fonts"
             )
-        )
+        );
         for (var i = 0; i < fontPickers.length; i++) {
-            var element = fontPickers[i]
+            var element = fontPickers[i];
             if (element.value != "") {
                 var url = "https://fonts.googleapis.com/css?family=" + element.value;
-                var promise = await fetch(url, {
-                    mode: 'no-cors'
-                })
-                var text = await promise.text()
-                css += text
+                var promise = await fetch(url,
+                    {
+                        mode: 'no-cors'
+                    });
+                var text = await promise.text();
+                css += text;
                 css += element.getAttribute("data-css").replaceAll("$", element.value.replaceAll("+", " "));
             }
         }
-        console.log("fuera del loop")
+        console.log("fuera del loop");
     }
 
-    return css
+    return css;
 
 
 }
 
 function checkForImport(css) {
-    return css.includes("@import")
+    return css.includes("@import");
 }
-
 
 
 function generatePlugins() {
     if (hasGoogleFont) {
-        createFontPicker()
+        createFontPicker();
     }
+
     for (var colorPicker in colorPickers) {
-        var id = "#" + colorPicker
+        var id = "#" + colorPicker;
         $(id).spectrum({
             color: colorPickers[colorPicker],
             showInput: true,
@@ -491,20 +537,30 @@ function generatePlugins() {
 
             },
             palette: [
-                ["rgb(0, 0, 0)", "rgb(67, 67, 67)", "rgb(102, 102, 102)",
+                [
+                    "rgb(0, 0, 0)", "rgb(67, 67, 67)", "rgb(102, 102, 102)",
                     "rgb(204, 204, 204)", "rgb(217, 217, 217)", "rgb(255, 255, 255)"
                 ],
-                ["rgb(152, 0, 0)", "rgb(255, 0, 0)", "rgb(255, 153, 0)", "rgb(255, 255, 0)", "rgb(0, 255, 0)",
+                [
+                    "rgb(152, 0, 0)", "rgb(255, 0, 0)", "rgb(255, 153, 0)", "rgb(255, 255, 0)", "rgb(0, 255, 0)",
                     "rgb(0, 255, 255)", "rgb(74, 134, 232)", "rgb(0, 0, 255)", "rgb(153, 0, 255)", "rgb(255, 0, 255)"
                 ],
-                ["rgb(230, 184, 175)", "rgb(244, 204, 204)", "rgb(252, 229, 205)", "rgb(255, 242, 204)", "rgb(217, 234, 211)",
-                    "rgb(208, 224, 227)", "rgb(201, 218, 248)", "rgb(207, 226, 243)", "rgb(217, 210, 233)", "rgb(234, 209, 220)",
-                    "rgb(221, 126, 107)", "rgb(234, 153, 153)", "rgb(249, 203, 156)", "rgb(255, 229, 153)", "rgb(182, 215, 168)",
-                    "rgb(162, 196, 201)", "rgb(164, 194, 244)", "rgb(159, 197, 232)", "rgb(180, 167, 214)", "rgb(213, 166, 189)",
-                    "rgb(204, 65, 37)", "rgb(224, 102, 102)", "rgb(246, 178, 107)", "rgb(255, 217, 102)", "rgb(147, 196, 125)",
-                    "rgb(118, 165, 175)", "rgb(109, 158, 235)", "rgb(111, 168, 220)", "rgb(142, 124, 195)", "rgb(194, 123, 160)",
+                [
+                    "rgb(230, 184, 175)", "rgb(244, 204, 204)", "rgb(252, 229, 205)", "rgb(255, 242, 204)",
+                    "rgb(217, 234, 211)",
+                    "rgb(208, 224, 227)", "rgb(201, 218, 248)", "rgb(207, 226, 243)", "rgb(217, 210, 233)",
+                    "rgb(234, 209, 220)",
+                    "rgb(221, 126, 107)", "rgb(234, 153, 153)", "rgb(249, 203, 156)", "rgb(255, 229, 153)",
+                    "rgb(182, 215, 168)",
+                    "rgb(162, 196, 201)", "rgb(164, 194, 244)", "rgb(159, 197, 232)", "rgb(180, 167, 214)",
+                    "rgb(213, 166, 189)",
+                    "rgb(204, 65, 37)", "rgb(224, 102, 102)", "rgb(246, 178, 107)", "rgb(255, 217, 102)",
+                    "rgb(147, 196, 125)",
+                    "rgb(118, 165, 175)", "rgb(109, 158, 235)", "rgb(111, 168, 220)", "rgb(142, 124, 195)",
+                    "rgb(194, 123, 160)",
                     "rgb(166, 28, 0)", "rgb(204, 0, 0)", "rgb(230, 145, 56)", "rgb(241, 194, 50)", "rgb(106, 168, 79)",
-                    "rgb(69, 129, 142)", "rgb(60, 120, 216)", "rgb(61, 133, 198)", "rgb(103, 78, 167)", "rgb(166, 77, 121)",
+                    "rgb(69, 129, 142)", "rgb(60, 120, 216)", "rgb(61, 133, 198)", "rgb(103, 78, 167)",
+                    "rgb(166, 77, 121)",
                     "rgb(91, 15, 0)", "rgb(102, 0, 0)", "rgb(120, 63, 4)", "rgb(127, 96, 0)", "rgb(39, 78, 19)",
                     "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"
                 ]
@@ -520,7 +576,7 @@ function createFontPicker() {
     });
 
     if (savedGoogleFont != undefined) {
-        $('input.fonts').val(savedGoogleFont).trigger('change')
+        $('input.fonts').val(savedGoogleFont).trigger('change');
     }
 }
 
@@ -585,7 +641,7 @@ function updateSelectors() {
     var selected = document.getElementById("cssOptions");
     var description = document.getElementById("description");
     data.forEach((element) => {
-        if (element.name == selected.selectedOptions[0].innerText) {
+        if (element.name === selected.selectedOptions[0].innerText) {
             loadOptions(element);
             description.innerHTML = element.description;
         }
@@ -593,20 +649,17 @@ function updateSelectors() {
     updateBlurSliders();
 }
 
-var config = undefined;
 
 function loadConfig() {
-    var pluginId = "e9ca8b8e-ca6d-40e7-85dc-58e536df8eb3";
+    ApiClient.getPluginConfiguration(plugin.guid).then(savedConfig => {
 
-    ApiClient.getPluginConfiguration(pluginId).then(function (
-        savedConfig
-    ) {
         config = savedConfig;
 
         if (!config) {
             config.selectedSkin = "";
             config.options = [];
         }
+
         loadSavedOptions();
     });
 }
@@ -614,16 +667,16 @@ function loadConfig() {
 function loadSavedOptions() {
     var skin = undefined;
     data.forEach((element) => {
-        if (element.defaultCss == config.selectedSkin) {
+        if (element.defaultCss === config.selectedSkin) {
             skin = element;
         }
     });
-    if (skin == undefined) {
+    if (skin === undefined) {
         return;
     }
     var count = 0;
-    for (let option of document.getElementById("cssOptions").options) {
-        if (option.value == config.selectedSkin) {
+    for (var option of document.getElementById("cssOptions").options) {
+        if (option.value === config.selectedSkin) {
             document.getElementById("cssOptions").selectedIndex = count;
         }
         count++;
@@ -632,34 +685,34 @@ function loadSavedOptions() {
     var savedOptions = config.options;
     var html = "";
     html += '<div data-role="controlgroup">';
-    skin.categories.forEach((categorie) => {
-        if (categorie.options.length != 0) {
-            html += getSection(categorie.name);
+    skin.categories.forEach((categories) => {
+        if (categories.options.length != 0) {
+            html += getSection(categories.name);
         }
-        var options = categorie.options;
+        var options = categories.options;
 
         options.forEach((element) => {
             var savedValue = undefined;
             var count = 0;
             savedOptions.forEach((savedOption) => {
-                if (element.css == savedOption) {
+                if (element.css === savedOption) {
                     savedValue = savedOptions[count + 1];
                 }
                 count++;
             });
-            if (element.type == "checkBox") {
+            if (element.type === "checkBox") {
                 html += getCheckBox(element, savedValue);
-            } else if (element.type == "colorPicker") {
+            } else if (element.type === "colorPicker") {
                 html += getColorPicker(element, savedValue);
-            } else if (element.type == "number") {
+            } else if (element.type === "number") {
                 html += getNumber(element, savedValue);
-            } else if (element.type == "selector") {
+            } else if (element.type === "selector") {
                 html += getSelector(element, savedValue);
-            } else if (element.type == "slider") {
+            } else if (element.type === "slider") {
                 html += getSlider(element, savedValue);
-            } else if (element.type == "googleFonts") {
+            } else if (element.type === "googleFonts") {
                 html += getFonts(element, savedValue);
-            } else if (element.type == "blurSlider") {
+            } else if (element.type === "blurSlider") {
                 html += getBlurSlider(element, savedValue);
             }
         });
@@ -671,30 +724,30 @@ function loadSavedOptions() {
     html += "</div>";
 
     $("#options").html(html).trigger("create");
-    generatePlugins()
+    generatePlugins();
 
 }
 
 function saveConfig() {
-    var pluginId = "e9ca8b8e-ca6d-40e7-85dc-58e536df8eb3";
     config.selectedSkin = $("#cssOptions").val();
 
     var options = [];
     var count = 0;
     data[
         document.getElementById("cssOptions").selectedIndex
-    ].categories.forEach((categorie) => {
-        categorie.options.forEach((option) => {
+    ].categories.forEach((categories) => {
+        categories.options.forEach((option) => {
             options[count] = option.css;
             options[count + 1] = getValue(option);
             count += 2;
         });
     });
+
     config.options = options;
 
-    ApiClient.getPluginConfiguration(pluginId).then(function (oldConfig) {
+    ApiClient.getPluginConfiguration(plugin.guid).then(function (oldConfig) {
         oldConfig = config;
-        ApiClient.updatePluginConfiguration(pluginId, oldConfig).then(
+        ApiClient.updatePluginConfiguration(plugin.guid, oldConfig).then(
             function (res) {
                 Dashboard.processPluginConfigurationUpdateResult(res);
             }
@@ -709,7 +762,7 @@ function getValue(option) {
             Array.from(
                 document.getElementsByClassName("checkbox emby-checkbox")
             ).forEach((element) => {
-                if (option.css == element.getAttribute("data-css")) {
+                if (option.css === element.getAttribute("data-css")) {
                     result = element.checked ? "true" : "false";
                 }
 
@@ -719,7 +772,7 @@ function getValue(option) {
             Array.from(
                 document.getElementsByClassName("number emby-input")
             ).forEach((element) => {
-                if (option.css == element.getAttribute("data-css")) {
+                if (option.css === element.getAttribute("data-css")) {
                     result = element.value;
                 }
 
@@ -728,7 +781,7 @@ function getValue(option) {
         case "colorPicker":
             Array.from(document.getElementsByClassName("color")).forEach(
                 (element) => {
-                    if (option.css == element.getAttribute("data-css")) {
+                    if (option.css === element.getAttribute("data-css")) {
                         result = element.value;
                     }
                 }
@@ -738,7 +791,7 @@ function getValue(option) {
         case "blurSlider":
             Array.from(document.getElementsByClassName("slider")).forEach(
                 (element) => {
-                    if (option.css == element.getAttribute("data-css")) {
+                    if (option.css === element.getAttribute("data-css")) {
                         result = element.value;
                     }
                 }
@@ -751,7 +804,7 @@ function getValue(option) {
                     "selector emby-select-withcolor emby-select"
                 )
             ).forEach((element) => {
-                if (option.css == element.getAttribute("data-css")) {
+                if (option.css === element.getAttribute("data-css")) {
                     result = element.selectedOptions[0].innerText;
                 }
 
@@ -764,7 +817,7 @@ function getValue(option) {
                     "fonts"
                 )
             ).forEach((element) => {
-                if (option.css == element.getAttribute("data-css")) {
+                if (option.css === element.getAttribute("data-css")) {
                     result = element.value;
                 }
             });
@@ -777,8 +830,8 @@ function checkEasterEggs() {
     var d = new Date();
 
     if (
-        (d.getDate() >= 18 && d.getMonth() == 11) ||
-        (d.getDate() <= 10 && d.getMonth() == 0)
+        (d.getDate() >= 18 && d.getMonth() === 11) ||
+        (d.getDate() <= 10 && d.getMonth() === 0)
     ) {
         //startChristmas();
     }
@@ -795,6 +848,7 @@ function startChristmas() {
         }
     );
 }
+
 async function setSkin() {
     saveConfig();
     ApiClient.getServerConfiguration().then(function (config) {
@@ -803,7 +857,7 @@ async function setSkin() {
                 brandingConfig
             ) {
                 createCss().then(r => {
-                    console.log("despues de then")
+                    console.log("despues de then");
                     brandingConfig.CustomCss = r;
                     ApiClient.updateNamedConfiguration(
                         "branding",
@@ -813,7 +867,7 @@ async function setSkin() {
                         window.location.reload(true);
                     });
 
-                })
+                });
             });
         });
     });
@@ -822,20 +876,19 @@ async function setSkin() {
 function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
     var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-        return r + r + g + g + b + b;
-    });
+    hex = hex.replace(shorthandRegex,
+        function (m, r, g, b) {
+            return r + r + g + g + b + b;
+        });
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-    } :
-        null;
+    return result
+        ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16),
+        }
+        : null;
 }
-
-
-
 
 
 // =======================================================================================
@@ -843,28 +896,25 @@ function hexToRgb(hex) {
 
 
 
-
-var plugin = {
-    guid: "e9ca8b8e-ca6d-40e7-85dc-58e536df8eb3",
-};
-
-$("#configPage").on("pageshow", function () {
-    Dashboard.showLoadingMsg();
-    ApiClient.getPluginConfiguration(plugin.guid).then(function (config) {
-        $("#cssOptions").val(config.selectedCss).change();
-        Dashboard.hideLoadingMsg();
+$("#configPage").on("pageshow",
+    function () {
+        Dashboard.showLoadingMsg();
+        ApiClient.getPluginConfiguration(plugin.guid).then(function (config) {
+            $("#cssOptions").val(config.selectedCss).change();
+            Dashboard.hideLoadingMsg();
+        });
     });
-});
 
-$("#configForm").on("submit", function () {
-    Dashboard.showLoadingMsg();
-    ApiClient.getPluginConfiguration(plugin.guid).then(function (config) {
-        config.selectedCss = $("#cssOptions").val();
-        ApiClient.updatePluginConfiguration(plugin.guid, config).then(
-            function (result) {
-                Dashboard.processPluginConfigurationUpdateResult(result);
-            }
-        );
+$("#configForm").on("submit",
+    function () {
+        Dashboard.showLoadingMsg();
+        ApiClient.getPluginConfiguration(plugin.guid).then(function (config) {
+            config.selectedCss = $("#cssOptions").val();
+            ApiClient.updatePluginConfiguration(plugin.guid, config).then(
+                function (result) {
+                    Dashboard.processPluginConfigurationUpdateResult(result);
+                }
+            );
+        });
+        return false;
     });
-    return false;
-});
