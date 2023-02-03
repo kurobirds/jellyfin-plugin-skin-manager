@@ -7,19 +7,19 @@
         "previews": [
             {
                 "name": "Login Page",
-                "url": "https://raw.githubusercontent.com/danieladov/jellyfin-plugin-skin-manager/master/src/img/Default/1.png"
+                "url": "https://raw.githubusercontent.com/kurobirds/jellyfin-plugin-skin-manager/master/src/img/Default/1.png"
             },
             {
                 "name": "Home/Index Page",
-                "url": "https://raw.githubusercontent.com/danieladov/jellyfin-plugin-skin-manager/master/src/img/Default/2.png"
+                "url": "https://raw.githubusercontent.com/kurobirds/jellyfin-plugin-skin-manager/master/src/img/Default/2.png"
             },
             {
                 "name": "Library Page",
-                "url": "https://raw.githubusercontent.com/danieladov/jellyfin-plugin-skin-manager/master/src/img/Default/3.png"
+                "url": "https://raw.githubusercontent.com/kurobirds/jellyfin-plugin-skin-manager/master/src/img/Default/3.png"
             },
             {
                 "name": "Title page",
-                "url": "https://raw.githubusercontent.com/danieladov/jellyfin-plugin-skin-manager/master/src/img/Default/4.png"
+                "url": "https://raw.githubusercontent.com/kurobirds/jellyfin-plugin-skin-manager/master/src/img/Default/4.png"
             }
         ],
         "categories": [
@@ -37,19 +37,19 @@
         "previews": [
             {
                 "name": "Login Page",
-                "url": "https://cdn.jsdelivr.net/gh/prayag17/JellySkin/img/login.jpg"
+                "url": "https://user-images.githubusercontent.com/55829513/200134094-9bafba9d-4cfa-48c3-bbf4-e01bc21ecdd1.png"
             },
             {
                 "name": "Home/Index Page",
-                "url": "https://cdn.jsdelivr.net/gh/prayag17/JellySkin/img/Home.jpg"
+                "url": "https://user-images.githubusercontent.com/55829513/200134098-6463a6e7-95bb-4af6-a451-b6ac5ef7abad.png"
             },
             {
                 "name": "Library Page",
-                "url": "https://cdn.jsdelivr.net/gh/prayag17/JellySkin/img/Movies.jpg"
+                "url": "https://user-images.githubusercontent.com/55829513/200133209-413d6e6c-3569-4aaf-9db7-f576c141f519.png"
             },
             {
                 "name": "Title page",
-                "url": "https://cdn.jsdelivr.net/gh/prayag17/JellySkin/img/Title%20Page-Movie.jpg"
+                "url": "https://user-images.githubusercontent.com/55829513/200133240-075f604d-ae7f-48cb-9a42-445d8f3ef427.png"
             }
         ],
         "categories": [
@@ -60,32 +60,27 @@
                         "type": "selector",
                         "name": "Gradient",
                         "description": "Changes the Jellyfin themed Hover gradient",
-                        "css": "@import url('https://cdn.jsdelivr.net/gh/prayag17/JellySkin/$.css');",
+                        "css": "@import url('https://cdn.jsdelivr.net/npm/jellyskin@12.3.0/dist/main.css');",
                         "selections": [
                             {
                                 "name": "Default",
                                 "value": "",
-                                "css": "@import url('https://cdn.jsdelivr.net/gh/prayag17/JellySkin/default.css');"
+                                "css": "@import url('https://cdn.jsdelivr.net/npm/jellyskin@12.3.0/dist/main.css');"
                             },
                             {
-                                "name": "Sea Gradient",
-                                "value": "seaGradient",
-                                "css": "@import url('https://cdn.jsdelivr.net/gh/prayag17/JellySkin/addons/Gradients/seaGradient.css');"
+                                "name": "Mauve",
+                                "value": "mauve",
+                                "css": "@import url('https://cdn.jsdelivr.net/npm/jellyskin@12.3.0/dist/addons/gradients/mauve.css');"
                             },
                             {
-                                "name": "Sunset Gradient",
-                                "value": "sunsetGradient",
-                                "css": "@import url('https://cdn.jsdelivr.net/gh/prayag17/JellySkin/addons/Gradients/sunsetGradient.css');"
+                                "name": "NightSky",
+                                "value": "nightSky",
+                                "css": "@import url('https://cdn.jsdelivr.net/npm/jellyskin@12.3.0/dist/addons/gradients/nightSky.css')"
                             },
                             {
-                                "name": "Mauve Gradient",
+                                "name": "Sea",
                                 "value": "morningGradient",
-                                "css": "@import url('https://cdn.jsdelivr.net/gh/prayag17/JellySkin/addons/Gradients/mauveGradient.css');"
-                            },
-                            {
-                                "name": "Night Sky Gradient",
-                                "value": "nightSkyGradient",
-                                "css": "@import url('https://cdn.jsdelivr.net/gh/prayag17/JellySkin/addons/Gradients/nightSkyGradient.css');"
+                                "css": "@import url('https://cdn.jsdelivr.net/npm/jellyskin@12.3.0/dist/addons/gradients/sea.css');"
                             }
                         ]
                     },
@@ -93,19 +88,19 @@
                         "type": "checkBox",
                         "name": "Theme Logo",
                         "description": "Styles title page in such a way in which logos are used instead of Names.",
-                        "css": "@import url('https://cdn.jsdelivr.net/gh/prayag17/JellySkin/addons/Logo.css');"
-                    },
-                    {
-                        "type": "checkBox",
-                        "name": "Compact Posters",
-                        "description": "If you want to display your posters to be compact.",
-                        "css": "@import url('https://cdn.jsdelivr.net/gh/prayag17/JellySkin/addons/compact-poster.css');"
+                        "css": "@import url('https://cdn.jsdelivr.net/npm/jellyskin@12.3.0/dist/logo.css');"
                     },
                     {
                         "type": "checkBox",
                         "name": "Improve Performance",
                         "description": "Removes all gradient transparecy due to performance issues on older devices.",
-                        "css": "@import url('https://cdn.jsdelivr.net/gh/prayag17/JellySkin/addons/imp-per.css');"
+                        "css": "@import url('https://cdn.jsdelivr.net/npm/jellyskin@12.3.0/dist/addons/improvePerformance.css')"
+                    },
+                    {
+                        "type": "checkBox",
+                        "name": "Compact Posters",
+                        "description": "If you want to display your posters to be compact.",
+                        "css": "@import url('https://cdn.jsdelivr.net/npm/jellyskin@12.3.0/dist/addons/compactPosters.css');"
                     }
                 ]
             }
@@ -115,7 +110,7 @@
         "name": "JellyFlix",
         "author": "prayagprajapati17",
         "description": "A theme that aims to replicate the red and black look of Netflix. Theme is by prayag17.",
-        "defaultCss": "@import url(https://cdn.jsdelivr.net/gh/prayag17/JellyFlix@latest/default.css);",
+        "defaultCss": "@import url(https://cdn.jsdelivr.net/npm/@zakariaa/jellyflix@3.1.2/dist/netflix.css);",
         "previews": [
             {
                 "name": "Login Page",
@@ -139,6 +134,29 @@
                 "name": "Default",
                 "options": [
                     {
+                        "type": "selector",
+                        "name": "Gradient",
+                        "description": "Changes the Jellyfin themed Hover gradient",
+                        "css": "@import url('https://cdn.jsdelivr.net/gh/prayag17/JellyFlix@latest/default.css');",
+                        "selections": [
+                            {
+                                "name": "Default",
+                                "value": "",
+                                "css": "@import url('https://cdn.jsdelivr.net/gh/prayag17/JellyFlix@latest/default.css');"
+                            },
+                            {
+                                "name": "Jellyfin-Blue",
+                                "value": "jf-blue",
+                                "css": "@import url('https://cdn.jsdelivr.net/gh/prayag17/JellyFlix@9.0.4/addons/jf-blue.css');"
+                            },
+                            {
+                                "name": "Jellyfin-Purple",
+                                "value": "jf-purple",
+                                "css": "@import url('https://cdn.jsdelivr.net/gh/prayag17/JellyFlix@9.0.4/addons/jf-purple.css')"
+                            }
+                        ]
+                    },
+                    {
                         "type": "checkBox",
                         "name": "Theme Logo",
                         "description": "Styles title page in such a way in which logos are used instead of Names.",
@@ -152,7 +170,7 @@
         "name": "Ultrachromic",
         "author": "Casper Talvio",
         "description": "The final form, the true evolution of the chromic theme saga! The old trilogy of chromic themes are deprecated, as their appearances can be replicated using Ultrachromic.",
-        "defaultCss": "@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/base.css');@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/accentlist.css');",
+        "defaultCss": "@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/presets/monochromic_preset.css');",
         "previews": [
             {
                 "name": "Login Page",
@@ -164,7 +182,7 @@
             },
             {
                 "name": "Library Page",
-                "url": "https://raw.githubusercontent.com/danieladov/jellyfin-plugin-skin-manager/master/src/img/Monochromic/Lib.jpg"
+                "url": "https://user-images.githubusercontent.com/4365015/127774204-03957527-7178-4ea2-8674-d83fe6a97d1c.png"
             },
             {
                 "name": "Title page",
@@ -172,6 +190,39 @@
             }
         ],
         "categories": [
+            {
+                "name": "Preset Theme Selection",
+                "options": [
+                    {
+                        "type": "selector",
+                        "name": "Presets",
+                        "description": "Changes the Ultrachromic preset. Adding modules after a preset may or may not work. Use the custom preset if you want to select the modules.",
+                        "css": "@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/presets/monochromic_preset.css');",
+                        "selections": [
+                            {
+                                "name": "Monochromic",
+                                "value": "monochromic",
+                                "css": "@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/presets/monochromic_preset.css');"
+                            },
+                            {
+                                "name": "Kaleidochromic",
+                                "value": "kaleidochromic",
+                                "css": "@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/presets/kaleidochromic_preset.css');"
+                            },
+                            {
+                                "name": "Novachromic",
+                                "value": "novachromic",
+                                "css": "@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/presets/novachromic_preset.css');"
+                            },
+                            {
+                                "name": "Custom",
+                                "value": "custom",
+                                "css": "@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/base.css');@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/accentlist.css');"
+                            }
+                        ]
+                    }
+                ]
+            },
             {
                 "name": "Customization Details",
                 "description": "Recommended only with the Custom theme. Not guaranteed to work with the presets.",
@@ -192,7 +243,7 @@
                         "type": "selector",
                         "name": "Rounding",
                         "description": "Circlehover keeps the stock circle accent when hovering over things, otherwise the accent will be a rounded square like everythig else.",
-                        "css": "/* Rounding */",
+                        "css": "",
                         "selections": [
                             {
                                 "name": "Default",
@@ -216,7 +267,7 @@
                         "type": "selector",
                         "name": "Compact episode list",
                         "description": "A more easily scrolled episode list, there is the option to keep it as a list that is more compact, or turning the episode list into a grid menu.",
-                        "css": "/* Compact list */",
+                        "css": "",
                         "selections": [
                             {
                                 "name": "Compact List",
@@ -240,7 +291,7 @@
                         "type": "selector",
                         "name": "Login Screen",
                         "description": "Login screen styles. The minimalistic option has no frame or prompt text.",
-                        "css": "/* Login frame */",
+                        "css": "",
                         "selections": [
                             {
                                 "name": "Login Frame",
@@ -258,7 +309,7 @@
                         "type": "selector",
                         "name": "Input fields",
                         "description": "Input field styles, with borders that highlight when selected, or with no borders, and the background highlights, when selected.",
-                        "css": "/* Input fields */",
+                        "css": "",
                         "selections": [
                             {
                                 "name": "Border",
@@ -276,7 +327,7 @@
                         "type": "selector",
                         "name": "Watched/Unwatched indicators",
                         "description": "Two options, should the indicator be floating, or attached to the corner of the title card.",
-                        "css": "/* Watched/Unwatched */",
+                        "css": "",
                         "selections": [
                             {
                                 "name": "Floating",
@@ -294,7 +345,7 @@
                         "type": "selector",
                         "name": "Theme",
                         "description": "Dark, light, and colorful type.",
-                        "css": "/* Theme */",
+                        "css": "",
                         "selections": [
                             {
                                 "name": "Dark",
@@ -322,7 +373,7 @@
                         "type": "selector",
                         "name": "Title Page",
                         "description": "Four options, two versions, each version can be used with or without a logo replacing title text.",
-                        "css": "/* Title page */",
+                        "css": "",
                         "selections": [
                             {
                                 "name": "Simple",
@@ -350,7 +401,7 @@
                         "type": "selector",
                         "name": "Progress bar",
                         "description": "Default, overlay or floating style progress indicator for library items.",
-                        "css": "/* Progress bar */",
+                        "css": "",
                         "selections": [
                             {
                                 "name": "Overlay",
@@ -384,7 +435,7 @@
                     {
                         "type": "checkBox",
                         "name": "Pan-Animation Effect",
-                        "description": "Caution: Pan-animation can cause flickering on chromium based browsers when the backdrop is also modified",
+                        "description": "",
                         "css": "@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/effects/pan-animation.css');"
                     },
                     {
@@ -397,225 +448,43 @@
                         "type": "number",
                         "name": "Modify Backdrop Blur",
                         "css": ".backdropImage {filter: blur($px);}",
-                        "default": "18",
-                        "description": ""
+                        "default": "18"
                     },
                     {
                         "type": "number",
                         "name": "Modify Backdrop Saturation",
                         "css": ".backdropImage {filter: saturate($%);}",
-                        "default": "120",
-                        "description": ""
+                        "default": "120"
                     },
                     {
                         "type": "number",
                         "name": "Modify Backdrop Contrast",
                         "css": ".backdropImage {filter: contrast($%);}",
-                        "default": "120",
-                        "description": ""
+                        "default": "120"
                     },
                     {
                         "type": "number",
                         "name": "Modify Backdrop Brightness",
                         "css": ".backdropImage {filter: brightness($%);}",
-                        "default": "40",
-                        "description": ""
+                        "default": "40"
                     },
                     {
                         "type": "text",
-                        "name": "Modify Login Background url",
+                        "name": "Modify Login Background",
                         "css": "#loginPage {background: url($) !important;}",
-                        "default": "https://i.imgur.com/9vL4iNf.png",
-                        "description": ""
+                        "default": "https://i.imgur.com/9vL4iNf.png"
                     },
                     {
                         "type": "colorPicker",
                         "name": "Modify Accent Color",
                         "css": ":root {--accent: $;}",
-                        "mode": "only_numbers",
-                        "default": "#6279cd",
-                        "description": ""
+                        "default": "#6279cd"
                     },
                     {
                         "type": "number",
                         "name": "Modify Rounding",
                         "css": ":root {--rounding: $px;}",
-                        "default": "12",
-                        "description": ""
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "name": "Monochromic",
-        "author": "EdgeMentality",
-        "description": "This theme aims to be minimalistic and somewhat muted in color. Add-ons and custom accent colors are possible, but not entirely supported by this plug-in. Visit the github of the theme for more information.",
-        "defaultCss": "@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/presets/monochromic_preset.css');",
-        "previews": [
-            {
-                "name": "Login Page",
-                "url": "https://github.com/danieladov/jellyfin-plugin-skin-manager/blob/master/src/img/Monochromic/login.jpg?raw=true"
-            },
-            {
-                "name": "Home/Index Page",
-                "url": "https://github.com/CTalvio/Monochromic/blob/master/screenshots/1.png?raw=true"
-            },
-            {
-                "name": "Library Page",
-                "url": "https://raw.githubusercontent.com/danieladov/jellyfin-plugin-skin-manager/master/src/img/Monochromic/Lib.jpg"
-            },
-            {
-                "name": "Title page",
-                "url": "https://github.com/CTalvio/Monochromic/raw/master/screenshots/2.png"
-            }
-        ],
-        "categories": [
-            {
-                "name": "Default",
-                "options": [
-                    {
-                        "type": "checkBox",
-                        "name": "Improve performance",
-                        "description": "The theme uses mask-image to fade out items below the top bar as you scroll. This works well on most reasonable hardware but struggles on some phones and especially smart TVs. This switches to a method without using mask-image, but foregoes the fade-out effect. I may switch to this method being the default.",
-                        "css": "@import url('https://ctalvio.github.io/Monochromic/improve-performance_style.css');"
-                    },
-                    {
-                        "type": "checkBox",
-                        "name": "No rounded corners",
-                        "description": "In fact, squares off every rounded corner JF ever had.",
-                        "css": "@import url('https://ctalvio.github.io/Monochromic/sharp_style.css'); "
-                    },
-                    {
-                        "type": "checkBox",
-                        "name": "Restore bottom bar style episode progress",
-                        "description": "Don't like my transparent view progress overlay? Use this to go back to the old style.",
-                        "css": "@import url('https://ctalvio.github.io/Monochromic/bottom-progress_style.css');"
-                    },
-                    {
-                        "type": "number",
-                        "name": "Modify rounding",
-                        "description": "Amount of rounding. Zero is none.",
-                        "css": ":root {--rounding: $px;}",
-                        "default": "5"
-                    },
-                    {
-                        "type": "colorPicker",
-                        "name": "Accent color",
-                        "mode": "only_numbers",
-                        "description": "Choose a custom accent color to use with the theme.",
-                        "css": "@import url('https://ctalvio.github.io/Monochromic/customcolor-advanced_style.css');:root {--accent: $;}",
-                        "default": ""
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "name": "Kaleidochromic",
-        "author": "Casper Talvio",
-        "description": "This theme aims to be more colorful and minimalistic. Add-ons and custom accent colors are possible, but not entirely supported by this plug-in. Visit the github of the theme for more information.",
-        "defaultCss": "@import url('https://ctalvio.github.io/Kaleidochromic/default_style.css');",
-        "previews": [
-            {
-                "name": "Login Page",
-                "url": "https://github.com/danieladov/jellyfin-plugin-skin-manager/blob/master/src/img/Kaleidochromic/Login.jpg?raw=true"
-            },
-            {
-                "name": "Home/Index Page",
-                "url": "https://github.com/CTalvio/Kaleidochromic/raw/main/screenshots/6.png"
-            },
-            {
-                "name": "Library Page",
-                "url": "https://github.com/CTalvio/Kaleidochromic/raw/main/screenshots/5.png"
-            },
-            {
-                "name": "Title page",
-                "url": "https://github.com/CTalvio/Kaleidochromic/raw/main/screenshots/1.png"
-            }
-        ],
-        "categories": [
-            {
-                "name": "Default",
-                "options": [
-                    {
-                        "type": "checkBox",
-                        "name": "Improve performance",
-                        "description": "The theme uses mask-image to fade out items below the top bar as you scroll. This works well on most reasonable hardware but struggles on some phones and especially smart TVs. This switches to a method without using mask-image, but foregoes the fade-out effect.",
-                        "css": "@import url('https://ctalvio.github.io/Monochromic/improve-performance_style.css');"
-                    },
-                    {
-                        "type": "checkBox",
-                        "name": "Restore bottom bar style episode progress",
-                        "description": "Don't like my transparent view progress overlay? Use this to go back to the old style.",
-                        "css": "@import url('https://ctalvio.github.io/Monochromic/bottom-progress_style.css');"
-                    },
-                    {
-                        "type": "number",
-                        "name": "Modify rounding",
-                        "description": "Amount of rounding. Zero is none.",
-                        "css": ":root {--rounding: $px;}",
                         "default": "12"
-                    },
-                    {
-                        "type": "colorPicker",
-                        "name": "Accent color",
-                        "mode": "only_numbers",
-                        "description": "Choose a custom accent color to use with the theme.",
-                        "css": ":root {--accent: $;}",
-                        "default": "#6279cd"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "name": "Novachromic",
-        "author": "EdgeMentality",
-        "description": "Novachromic is essentially Monochromic, but with another layer of overrides on top.",
-        "defaultCss": "@import url('https://ctalvio.github.io/Novachromic/default_style.css');",
-        "previews": [
-            {
-                "name": "Home/Index Page",
-                "url": "https://github.com/CTalvio/Novachromic/raw/main/screenshots/one.png"
-            },
-            {
-                "name": "Library Page",
-                "url": "https://github.com/CTalvio/Novachromic/raw/main/screenshots/six.png"
-            },
-            {
-                "name": "Title page",
-                "url": "https://github.com/CTalvio/Novachromic/raw/main/screenshots/four.png"
-            },
-            {
-                "name": "Dashboard page",
-                "url": "https://github.com/CTalvio/Novachromic/raw/main/screenshots/two.png"
-            }
-        ],
-        "categories": [
-            {
-                "name": "Default",
-                "options": [
-                    {
-                        "type": "checkBox",
-                        "name": "Restore bottom bar style episode progress",
-                        "description": "Don't like my transparent view progress overlay? Use this to go back to the old style.",
-                        "css": "@import url('https://ctalvio.github.io/Monochromic/bottom-progress_style.css');"
-                    },
-                    {
-                        "type": "number",
-                        "name": "Modify rounding",
-                        "description": "Amount of rounding. Zero is none.",
-                        "css": ":root {--rounding: $px;}",
-                        "default": "12"
-                    },
-                    {
-                        "type": "colorPicker",
-                        "name": "Accent color",
-                        "mode": "only_numbers",
-                        "description": "Choose a custom accent color to use with the theme.",
-                        "css": ":root {--accent: $;}",
-                        "default": "#ffffff"
                     }
                 ]
             }
