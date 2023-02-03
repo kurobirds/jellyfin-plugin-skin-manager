@@ -6,46 +6,66 @@ using MediaBrowser.Common.Plugins;
 using MediaBrowser.Model.Plugins;
 using MediaBrowser.Model.Serialization;
 
-namespace Jellyfin.Plugin.SkinManager
+namespace Jellyfin.Plugin.SkinManager;
+
+/// <summary>
+/// The main plugin.
+/// </summary>
+public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
 {
-    public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Plugin"/> class.
+    /// </summary>
+    /// <param name="applicationPaths">Instance of the <see cref="IApplicationPaths"/> interface.</param>
+    /// <param name="xmlSerializer">Instance of the <see cref="IXmlSerializer"/> interface.</param>
+    public Plugin(IApplicationPaths applicationPaths, IXmlSerializer xmlSerializer)
+        : base(applicationPaths, xmlSerializer)
     {
-        public Plugin(IApplicationPaths appPaths, IXmlSerializer xmlSerializer)
-            : base(appPaths, xmlSerializer)
+        Instance = this;
+    }
+
+    /// <inheritdoc />
+    public override string Name => "SkinManager";
+
+    /// <inheritdoc />
+    public override Guid Id => Guid.Parse("e9ca8b8e-ca6d-40e7-85dc-58e536df8eb3");
+
+    /// <summary>
+    /// Gets the current plugin instance.
+    /// </summary>
+    public static Plugin? Instance { get; private set; }
+
+    /// <inheritdoc />
+    public override string Description => "Skin Manager";
+
+    /// <inheritdoc />
+    public IEnumerable<PluginPageInfo> GetPages()
+    {
+        return new[]
         {
-            Instance = this;
-        }
-
-        public override string Name => "SkinManager";
-
-        public static Plugin Instance { get; private set; }
-
-        public override string Description
-            => "Skin Manager";
-
-        private readonly Guid _id = new Guid("e9ca8b8e-ca6d-40e7-85dc-58e536df8eb3");
-        public override Guid Id => _id;
-
-        public IEnumerable<PluginPageInfo> GetPages()
-        {
-            return new[]
+            // HTML
+            new PluginPageInfo
             {
-                new PluginPageInfo
-                {
-                    Name = "SkinManager",
-                    EmbeddedResourcePath = GetType().Namespace + ".Configuration.configurationpage.html"
-                },
-                 new PluginPageInfo
-                {
-                    Name = "fontpicker.js",
-                    EmbeddedResourcePath = GetType().Namespace + ".Configuration.fontpicker.js"
-                }, 
-                new PluginPageInfo
-                {
-                    Name = "fontpicker.css",
-                    EmbeddedResourcePath = GetType().Namespace + ".Configuration.jquery.fontpicker.min.css"
-                }
-            };
-        }
+                Name = Name,
+                EmbeddedResourcePath = $"{GetType().Namespace}.Configuration.configPage.html"
+            },
+            // CSS
+            new PluginPageInfo
+            {
+                Name = $"{Name}.css",
+                EmbeddedResourcePath = $"{GetType().Namespace}.Configuration.css.SkinManager.css"
+            },
+            // JS
+            new PluginPageInfo
+            {
+                Name = $"{Name}.js",
+                EmbeddedResourcePath = $"{GetType().Namespace}.Configuration.js.SkinManager.js"
+            },
+            new PluginPageInfo
+            {
+                Name = $"{Name}PreLoad.js",
+                EmbeddedResourcePath = $"{GetType().Namespace}.Configuration.js.SkinManagerPreLoad.js"
+            },
+        };
     }
 }
