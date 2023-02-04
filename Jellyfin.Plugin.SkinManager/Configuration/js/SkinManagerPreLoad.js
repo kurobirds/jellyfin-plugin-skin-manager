@@ -10188,4 +10188,4 @@
 
 });
 
-start();
+await start();

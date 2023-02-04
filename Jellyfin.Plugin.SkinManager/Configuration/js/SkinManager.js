@@ -1,8 +1,8 @@
 var data;
 var fonts;
 var hasGoogleFont = false;
-var plugin = {
-    guid: "e9ca8b8e-ca6d-40e7-85dc-58e536df8eb3"
+var SkinManagerConfigurationPage = {
+    pluginUniqueId: "e9ca8b8e-ca6d-40e7-85dc-58e536df8eb3"
 };
 var uriSkin = "https://raw.githubusercontent.com/kurobirds/jellyfin-plugin-skin-manager/master/skins-3.0.json";
 var uriGoogleFonts =
@@ -11,24 +11,26 @@ var config = undefined;
 var colorPickers = {};
 var savedGoogleFont;
 
-function start() {
-    Dashboard.showLoadingMsg();
-    $.getJSON(
-        uriSkin,
-        function (json) {
-            $.getJSON(
-                uriGoogleFonts,
-                function (jsonFonts) {
-                    fonts = jsonFonts;
-                }
-            );
+var fetchJson = async (uri) => {
+    const response = await window.fetch(uri);
+    const json = await response.json();
+    return json;
+}
 
-            data = json;
-            loadSkins();
-            checkEasterEggs();
-            Dashboard.hideLoadingMsg();
-        }
-    );
+async function start() {
+    Dashboard.showLoadingMsg();
+    
+    if (data === undefined) {
+        data = await fetchJson(uriSkin);
+    }
+
+    if (fonts === undefined) {
+        fonts = await fetchJson(uriGoogleFonts);
+    }
+    
+    loadSkins();
+    checkEasterEggs();
+    Dashboard.hideLoadingMsg();
 }
 
 function loadSkins() {
@@ -651,7 +653,7 @@ function updateSelectors() {
 
 
 function loadConfig() {
-    ApiClient.getPluginConfiguration(plugin.guid).then(savedConfig => {
+    ApiClient.getPluginConfiguration(SkinManagerConfigurationPage.pluginUniqueId).then(savedConfig => {
 
         config = savedConfig;
 
@@ -745,9 +747,9 @@ function saveConfig() {
 
     config.options = options;
 
-    ApiClient.getPluginConfiguration(plugin.guid).then(function (oldConfig) {
+    ApiClient.getPluginConfiguration(SkinManagerConfigurationPage.pluginUniqueId).then(function (oldConfig) {
         oldConfig = config;
-        ApiClient.updatePluginConfiguration(plugin.guid, oldConfig).then(
+        ApiClient.updatePluginConfiguration(SkinManagerConfigurationPage.pluginUniqueId, oldConfig).then(
             function (res) {
                 Dashboard.processPluginConfigurationUpdateResult(res);
             }
@@ -891,6 +893,7 @@ function hexToRgb(hex) {
 }
 
 
+
 // =======================================================================================
 
 
@@ -899,7 +902,7 @@ function hexToRgb(hex) {
 $("#configPage").on("pageshow",
     function () {
         Dashboard.showLoadingMsg();
-        ApiClient.getPluginConfiguration(plugin.guid).then(function (config) {
+        ApiClient.getPluginConfiguration(SkinManagerConfigurationPage.pluginUniqueId).then(function (config) {
             $("#cssOptions").val(config.selectedCss).change();
             Dashboard.hideLoadingMsg();
         });
@@ -908,9 +911,9 @@ $("#configPage").on("pageshow",
 $("#configForm").on("submit",
     function () {
         Dashboard.showLoadingMsg();
-        ApiClient.getPluginConfiguration(plugin.guid).then(function (config) {
+        ApiClient.getPluginConfiguration(SkinManagerConfigurationPage.pluginUniqueId).then(function (config) {
             config.selectedCss = $("#cssOptions").val();
-            ApiClient.updatePluginConfiguration(plugin.guid, config).then(
+            ApiClient.updatePluginConfiguration(SkinManagerConfigurationPage.pluginUniqueId, config).then(
                 function (result) {
                     Dashboard.processPluginConfigurationUpdateResult(result);
                 }
