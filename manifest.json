@@ -2,17 +2,17 @@
     {
         "guid": "e9ca8b8e-ca6d-40e7-85dc-58e536df8eb3",
         "name": "Skin Manager",
-        "description": "Skin manager helps you to download and install most popular skins for jellyfin\n",
+        "description": "Skin manager helps you to download and install most popular skins for jellyfin",
         "overview": "Skins for jellyfin",
-        "owner": "danieladov",
-        "imageURL": "https://raw.githubusercontent.com/danieladov/jellyfin-plugin-skin-manager/master/src/img/thumb.png",
+        "owner": "kurobirds",
+        "imageURL": "https://raw.githubusercontent.com/kurobirds/jellyfin-plugin-skin-manager/master/src/img/thumb.png",
         "category": "General",
         "versions": [
             {
                 "version": "2.1.0.0",
-                "changelog": "Added Ultrachromic and few fixes",
+                "changelog": "Fix plugin not load some case",
                 "targetAbi": "10.7.0.0",
-                "sourceUrl": "https://github.com/danieladov/jellyfin-plugin-skin-manager/releases/download/2.0.1/Jellyfin.Plugin.SkinManager.dll.zip",
+                "sourceUrl": "https://github.com/kurobirds/jellyfin-plugin-skin-manager/releases/download/2.1.0.0/Jellyfin.Plugin.SkinManager.dll.zip",
                 "checksum": "",
                 "timestamp": "2023-02-03 12:00:00"
             }
